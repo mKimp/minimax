@@ -31,7 +31,12 @@ public class Main {
                 break;
             }
             System.out.println("AI move");
-            board.findBestMove();
+            board.minimax_wrapper(0,'X');
+           for (MoveAndScore pas : board.MoveAndScore) {
+                System.out.println("Point: " + pas.m + " Score: " + pas.score);
+            }
+            Move bestMove = board.findBestMove();
+            board.placeAMove(bestMove, 'X');
             board.displayBoard();
 
         }
