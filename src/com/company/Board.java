@@ -1,8 +1,12 @@
 package com.company;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Board {
    char [][] board = new char[3][3];
-
+    ArrayList<Move> availabeMoves;
     public void initialBoard(){
         for (int i = 0; i < 3 ;++i){
             for (int j = 0; j < 3; ++j){
@@ -72,4 +76,77 @@ public class Board {
             return true;
         return false;
     }
+
+    public void placeAMove(Move m, char player){
+        if (board[m.x][m.y] == '_'){
+            board[m.x][m.y] = player;
+        }
+    }
+    public int minimax(char[][]board, char player, int depth){
+        if (XWin())
+            return 1;
+        else if (OWin())
+            return -1;
+        else if (isDraw())
+            return 0;
+        ArrayList<Move> availableCell = returnAvailableMove();
+        List<Integer> scores = new ArrayList<>();
+        for (int i = 0; i < availableCell.size(); ++i){
+            Move m = availableCell.get(i);
+            if (player == 'X'){
+                placeAMove(m, 'X');
+                int best = minimax(board,'O', depth +1);
+                scores.add(best);
+                //undo the move
+                placeAMove(m, '_');
+            }
+            if (player == 'O'){
+                placeAMove(m, 'O');
+                int best = minimax(board,'X',depth+1);
+                //undo the move
+                placeAMove(m, '_');
+                scores.add(best);
+            }
+        }
+        if (player == 'X')
+            return MaxBestMove(scores);
+        return MinBestMove(scores);
+    }
+
+    public int MaxBestMove(List<Integer> scores){
+        int best = Integer.MIN_VALUE;
+        for (int i = 0; i < scores.size(); ++i){
+            if (scores.get(i) > best)
+                best = scores.get(i);
+        }
+        return best;
+    }
+    public int MinBestMove(List<Integer> scores){
+        int best = Integer.MAX_VALUE;
+        for (int i = 0; i < scores.size(); ++i){
+            if (scores.get(i) < best)
+                best = scores.get(i);
+        }
+        return best;
+    }
+    public ArrayList<Move> returnAvailableMove(){
+        availabeMoves = new ArrayList<Move>();
+        for (int i = 0; i < 3; ++i){
+            for (int j = 0; j < 3; ++j){
+                if (board[i][j] == '_'){
+                    availabeMoves.add(new Move(i,j));
+                }
+            }
+        }
+        return availabeMoves;
+    }
+
 }
+class Move {
+    int x; int y;
+    public Move(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
+}
+
