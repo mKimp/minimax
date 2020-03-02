@@ -63,16 +63,17 @@ public class Board {
         return false;
     }
     public boolean isDraw(){
+        boolean isEmpty = false;
         for (int i = 0; i < 3; ++i){
             for (int j = 0; j < 3; ++j){
                 if (board[i][j] == '_')
-                    return false;
+                    isEmpty = true;
             }
         }
-        return true;
+        return isEmpty;
     }
     public boolean isGameOver(){
-        if (XWin() || OWin() || isDraw())
+        if (XWin() || OWin() || !isDraw())
             return true;
         return false;
     }
@@ -80,6 +81,18 @@ public class Board {
     public void placeAMove(Move m, char player){
         if (board[m.x][m.y] == '_'){
             board[m.x][m.y] = player;
+        }
+    }
+    public void findBestMove(){
+        ArrayList<Move> availableCell = returnAvailableMove();
+        int bestScore = Integer.MIN_VALUE;
+        for (int i = 0; i < availableCell.size(); ++i){
+            Move m = availableCell.get(i);
+            int score = minimax(board, 'X', 0);
+            if (score > bestScore) {
+                bestScore = score;
+                placeAMove(m, 'X');
+            }
         }
     }
     public int minimax(char[][]board, char player, int depth){
@@ -103,9 +116,9 @@ public class Board {
             if (player == 'O'){
                 placeAMove(m, 'O');
                 int best = minimax(board,'X',depth+1);
+                scores.add(best);
                 //undo the move
                 placeAMove(m, '_');
-                scores.add(best);
             }
         }
         if (player == 'X')
