@@ -2,8 +2,10 @@ package com.company;
 
 import jdk.internal.org.objectweb.asm.tree.FrameNode;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
 
@@ -32,13 +34,15 @@ public class Main {
             }
             System.out.println("AI move");
             board.minimax_wrapper(0,'X');
-           for (MoveAndScore pas : board.MoveAndScore) {
-                System.out.println("Point: " + pas.m + " Score: " + pas.score);
-            }
+            long start = System.nanoTime();
             Move bestMove = board.findBestMove();
+            long end = System.nanoTime();
+            long diff = end - start;
             board.placeAMove(bestMove, 'X');
+            double seconds = (double)diff/  1000000000;
+            DecimalFormat numberFormat = new DecimalFormat("#.000000");
+            System.out.println("Time taken to find the best move in seconds " + numberFormat.format(seconds));
             board.displayBoard();
-
         }
     }
     public static int random(){

@@ -1,6 +1,5 @@
 package com.company;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,7 +98,6 @@ public class Board {
     }
 
     public int minimax(char[][]board, char player, int depth){
-
         if (XWin())
             return 1;
         if (OWin())
