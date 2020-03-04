@@ -112,22 +112,20 @@ public class Board {
                 placeAMove(m, player);
                 int best = minimaxPruning(board,'O', depth +1, alpha, beta);
                 alpha = Math.max(alpha, best);
-                if (beta <= alpha)
-                    break;
-                scores.add(best);
                 if(depth == 0){
                     MoveAndScore.add(new MoveAndScore(best,m));
                 }
+                scores.add(best);
             }
             else if (player == 'O'){
                 placeAMove(m, player);
                 int best = minimaxPruning(board,'X', depth +1, alpha, beta);
-                alpha = Math.min(alpha, best);
-                if (beta <= alpha)
-                    break;
+                beta = Math.min(beta, best);
                 scores.add(best);
             }
             board[m.x][m.y] = '_';
+            if (beta <= alpha)
+                break;
         }
         if (player == 'X')
             return MaxBestMove(scores);
