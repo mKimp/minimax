@@ -33,7 +33,8 @@ public class Main {
                 break;
             }
             System.out.println("AI move");
-            board.minimax_wrapper(0,'X');
+            //board.minimaxPruningWrapper(0,'X');
+            board.minimax_wrapper(0, 'X');
             long start = System.nanoTime();
             Move bestMove = board.findBestMove();
             long end = System.nanoTime();

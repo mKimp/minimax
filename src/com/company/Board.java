@@ -92,6 +92,50 @@ public class Board {
         }
         return MoveAndScore.get(best).m;
     }
+    public void minimaxPruningWrapper(int depth, char player){
+        MoveAndScore = new ArrayList<>();
+        minimaxPruning(board, player, depth, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
+
+    public int minimaxPruning(char[][]board, char player, int depth, int alpha, int beta){
+        if (XWin())
+            return 1;
+        if (OWin())
+            return -1;
+        ArrayList<Move> availableCell = returnAvailableMove();
+        if (availableCell.isEmpty())
+            return 0;
+        List<Integer> scores = new ArrayList<>();
+        for (int i = 0; i < availableCell.size(); ++i){
+            Move m = availableCell.get(i);
+            if (player == 'X'){
+                placeAMove(m, player);
+                int best = minimaxPruning(board,'O', depth +1, alpha, beta);
+                alpha = Math.max(alpha, best);
+                if (beta <= alpha)
+                    break;
+                scores.add(best);
+                if(depth == 0){
+                    MoveAndScore.add(new MoveAndScore(best,m));
+                }
+            }
+            else if (player == 'O'){
+                placeAMove(m, player);
+                int best = minimaxPruning(board,'X', depth +1, alpha, beta);
+                alpha = Math.min(alpha, best);
+                if (beta <= alpha)
+                    break;
+                scores.add(best);
+            }
+            board[m.x][m.y] = '_';
+        }
+        if (player == 'X')
+            return MaxBestMove(scores);
+        else
+            return MinBestMove(scores);
+    }
+
+
     public void minimax_wrapper(int depth, char player){
         MoveAndScore = new ArrayList<>();
         minimax(board,player,depth);
@@ -158,7 +202,6 @@ public class Board {
         }
         return availabeMoves;
     }
-
 }
 class MoveAndScore{
     int score;
