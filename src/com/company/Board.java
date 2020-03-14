@@ -31,20 +31,18 @@ public class Board {
     }
     public boolean XWin_board3() {
         //vertical win
-        if (this.board[0][0] == 'X' && this.board[1][0] == 'X' && this.board[2][0] == 'X')
-            return true;
-        if (this.board[0][1] == 'X' && this.board[1][1] == 'X' && this.board[2][1] == 'X')
-            return true;
-        if (this.board[0][2] == 'X' && this.board[1][2] == 'X' && this.board[2][2] == 'X')
+        if ((this.board[0][0] == 'X' && this.board[1][0] == 'X' && this.board[2][0] == 'X')
+                ||  (this.board[0][1] == 'X' && this.board[1][1] == 'X' && this.board[2][1] == 'X')
+                || (this.board[0][2] == 'X' && this.board[1][2] == 'X' && this.board[2][2] == 'X'))
             return true;
         //horizontal win
-        if ((this.board[0][0] == 'X' && this.board[0][1] == 'X' && this.board[0][2] == 'X') || (this.board[1][0] == 'X'
-                && this.board[1][1] == 'X' && this.board[1][2] == 'X') || (this.board[2][0] == 'X' && this.board[2][1] == 'X'
-                && this.board[2][2] == 'X'))
+        if ((this.board[0][0] == 'X' && this.board[0][1] == 'X' && this.board[0][2] == 'X')
+                || (this.board[1][0] == 'X' && this.board[1][1] == 'X' && this.board[1][2] == 'X')
+                || (this.board[2][0] == 'X' && this.board[2][1] == 'X' && this.board[2][2] == 'X'))
             return true;
         // diagnose win
-        if ((this.board[0][0] == 'X' && this.board[1][1] == 'X' && this.board[2][2] == 'X') ||
-                (this.board[0][2] == 'X' && this.board[1][1] == 'X' && this.board[2][0] == 'X'))
+        if ((this.board[0][0] == 'X' && this.board[1][1] == 'X' && this.board[2][2] == 'X')
+                || (this.board[0][2] == 'X' && this.board[1][1] == 'X' && this.board[2][0] == 'X'))
             return true;
         return false;
     }
@@ -52,22 +50,19 @@ public class Board {
     public boolean OWin_board3() {
 
         //vertical win
-        if (this.board[0][0] == 'O' && this.board[1][0] == 'O' && this.board[2][0] == 'O')
-            return true;
-        if (this.board[0][1] == 'O' && this.board[1][1] == 'O' && this.board[2][1] == 'O')
-            return true;
-        if (this.board[0][2] == 'O' && this.board[1][2] == 'O' && this.board[2][2] == 'O')
+        if ((this.board[0][0] == 'O' && this.board[1][0] == 'O' && this.board[2][0] == 'O')
+            || (this.board[0][1] == 'O' && this.board[1][1] == 'O' && this.board[2][1] == 'O')
+            ||(this.board[0][2] == 'O' && this.board[1][2] == 'O' && this.board[2][2] == 'O'))
             return true;
         //horizontal win
-        if ((this.board[0][0] == 'O' && this.board[0][1] == 'O' && this.board[0][2] == 'O') || (this.board[1][0] == 'O'
-                && this.board[1][1] == 'O' && this.board[1][2] == 'O') || (this.board[2][0] == 'O' && this.board[2][1] == 'O'
-                && this.board[2][2] == 'O'))
+        if ((this.board[0][0] == 'O' && this.board[0][1] == 'O' && this.board[0][2] == 'O')
+                || (this.board[1][0] == 'O' && this.board[1][1] == 'O' && this.board[1][2] == 'O')
+                || (this.board[2][0] == 'O' && this.board[2][1] == 'O' && this.board[2][2] == 'O'))
             return true;
         // diagnose win
-        if ((this.board[0][0] == 'O' && this.board[1][1] == 'O' && this.board[2][2] == 'O') ||
-                (this.board[0][2] == 'O' && this.board[1][1] == 'O' && this.board[2][0] == 'O'))
+        if ((this.board[0][0] == 'O' && this.board[1][1] == 'O' && this.board[2][2] == 'O')
+                || (this.board[0][2] == 'O' && this.board[1][1] == 'O' && this.board[2][0] == 'O'))
             return true;
-
         return false;
     }
 
