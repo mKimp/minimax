@@ -1,5 +1,4 @@
 package com.company;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,14 +7,8 @@ public class Boardsize4 {
     ArrayList<Move> availabeMoves;
     ArrayList<MoveAndScore> MoveAndScore;
     public Boardsize4(int size){
-        if (size == 1){
-            board = new char[3][3];
-            this.size = 3;
-        }
-        else {
-            board = new char[4][4];
-            this.size = 4;
-        }
+        board = new char[4][4];
+        this.size = 4;
     }
     public void initialBoard(){
         for (int i = 0; i < size ;++i){
@@ -33,6 +26,7 @@ public class Boardsize4 {
             System.out.println();
         }
     }
+    //check if X win
     public boolean XWin() {
         //vertical win
         if (this.board[0][0] == 'X' && this.board[1][0] == 'X' && this.board[2][0] == 'X'  && this.board[3][0] == 'X')
@@ -55,6 +49,8 @@ public class Boardsize4 {
             return true;
         return false;
     }
+
+    //check if O win
     public boolean OWin() {
         //vertical win
         if (this.board[0][0] == 'O' && this.board[1][0] == 'O' && this.board[2][0] == 'O'  && this.board[3][0] == 'O')
@@ -77,13 +73,14 @@ public class Boardsize4 {
             return true;
         return false;
     }
-
+    // check condition of game is over
     public boolean isGameOver(){
         if (XWin() || OWin() || returnAvailableMove().isEmpty())
             return true;
         return false;
     }
 
+    // place a move on the board
     public void placeAMove(Move m, char player){
         if (board[m.x][m.y] == '_'){
             board[m.x][m.y] = player;
@@ -93,6 +90,7 @@ public class Boardsize4 {
         }
     }
 
+    // find the best move for X based on the highest score in the list
     public Move findBestMove(){
         int MAX = Integer.MIN_VALUE;
         int best = -1;
@@ -105,16 +103,19 @@ public class Boardsize4 {
         }
         return MoveAndScore.get(best).m;
     }
+
+    // alpha beta wrapper
     public void minimaxPruningWrapper(int depth, char player){
         MoveAndScore = new ArrayList<>();
         minimaxPruning(board, player, depth, Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
 
+    //alpha beta
     public int minimaxPruning(char[][]board, char player, int depth, int alpha, int beta){
-            if(XWin())
-                return 1;
-            if (OWin())
-                return -1;
+        if(XWin())
+            return 1;
+        if (OWin())
+            return -1;
         ArrayList<Move> availableCell = returnAvailableMove();
         if (availableCell.isEmpty())
             return 0;
@@ -123,60 +124,41 @@ public class Boardsize4 {
             Move m = availableCell.get(i);
             if (player == 'X'){
                 placeAMove(m, player);
-                int best = minimaxPruning(board,'O', depth +1, alpha, beta);
-                alpha = Math.max(alpha, best);
+                int best = minimaxPruning(board,'O', depth +1, alpha, beta); //DFS
+                alpha = Math.max(alpha, best); //update alpha in max
                 if(depth == 0){
-                    MoveAndScore.add(new MoveAndScore(best,m));
+                    MoveAndScore.add(new MoveAndScore(best,m)); //keep track the best score for X
                 }
                 scores.add(best);
             }
             else if (player == 'O'){
                 placeAMove(m, player);
-                int best = minimaxPruning(board,'X', depth +1, alpha, beta);
-                beta = Math.min(beta, best);
+                int best = minimaxPruning(board,'X', depth +1, alpha, beta); //DFS
+                beta = Math.min(beta, best); //updata beta in min
                 scores.add(best);
             }
             board[m.x][m.y] = '_';
             if (beta <= alpha)
                 break;
         }
-        if (player == 'X') {
-            int best = Integer.MIN_VALUE;
-            for (int i = 0; i < scores.size(); ++i) {
-                if (scores.get(i) > best) {
-                    best = scores.get(i);
-                }
-            }
-            return best;
-        }
-        else {
-            int best = Integer.MAX_VALUE;
-            for (int i = 0; i < scores.size(); ++i){
-                if (scores.get(i) < best) {
-                    best = scores.get(i);
-                }
-            }
-            return best;
-        }
-        /*
         if (player == 'X')
             return MaxBestMove(scores);
         else
-            return MinBestMove(scores); */
+            return MinBestMove(scores);
     }
 
-
+    //minimax wrapper
     public void minimax_wrapper(int depth, char player){
         MoveAndScore = new ArrayList<>();
         minimax(board,player,depth);
     }
 
+    //minimax
     public int minimax(char[][]board, char player, int depth){
         if (XWin())
             return 1;
         if (OWin())
             return -1;
-
         ArrayList<Move> availableCell = returnAvailableMove();
         if (availableCell.isEmpty())
             return 0;
@@ -198,29 +180,10 @@ public class Boardsize4 {
             }
             board[m.x][m.y] = '_';
         }
-        /*
         if (player == 'X')
             return MaxBestMove(scores);
         else
-            return MinBestMove(scores); */
-        if (player == 'X') {
-            int best = Integer.MIN_VALUE;
-            for (int i = 0; i < scores.size(); ++i) {
-                if (scores.get(i) > best) {
-                    best = scores.get(i);
-                }
-            }
-            return best;
-        }
-        else {
-            int best = Integer.MAX_VALUE;
-            for (int i = 0; i < scores.size(); ++i){
-                if (scores.get(i) < best) {
-                    best = scores.get(i);
-                }
-            }
-            return best;
-        }
+            return MinBestMove(scores);
     }
 
     public int MaxBestMove(List<Integer> scores){
