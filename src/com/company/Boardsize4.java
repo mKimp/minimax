@@ -3,11 +3,11 @@ package com.company;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Board {
-   char [][] board; int size;
+public class Boardsize4 {
+    char [][] board; int size;
     ArrayList<Move> availabeMoves;
     ArrayList<MoveAndScore> MoveAndScore;
-    public Board(int size){
+    public Boardsize4(int size){
         if (size == 1){
             board = new char[3][3];
             this.size = 3;
@@ -33,50 +33,53 @@ public class Board {
             System.out.println();
         }
     }
-    public boolean XWin_board3() {
+    public boolean XWin() {
         //vertical win
-        if (this.board[0][0] == 'X' && this.board[1][0] == 'X' && this.board[2][0] == 'X')
+        if (this.board[0][0] == 'X' && this.board[1][0] == 'X' && this.board[2][0] == 'X'  && this.board[3][0] == 'X')
             return true;
-        if (this.board[0][1] == 'X' && this.board[1][1] == 'X' && this.board[2][1] == 'X')
+        if (this.board[0][1] == 'X' && this.board[1][1] == 'X' && this.board[2][1] == 'X'  && this.board[3][1] == 'X' )
             return true;
-        if (this.board[0][2] == 'X' && this.board[1][2] == 'X' && this.board[2][2] == 'X')
+        if (this.board[0][2] == 'X' && this.board[1][2] == 'X' && this.board[2][2] == 'X'  && this.board[3][2] == 'X' )
+            return true;
+        if (this.board[0][3] == 'X' && this.board[1][3] == 'X' && this.board[2][3] == 'X' && this.board[3][3] == 'X' )
             return true;
         //horizontal win
-        if ((this.board[0][0] == 'X' && this.board[0][1] == 'X' && this.board[0][2] == 'X') || (this.board[1][0] == 'X'
-                && this.board[1][1] == 'X' && this.board[1][2] == 'X') || (this.board[2][0] == 'X' && this.board[2][1] == 'X'
-                && this.board[2][2] == 'X'))
+        if ((this.board[0][0] == 'X' && this.board[0][1] == 'X' && this.board[0][2] == 'X' && this.board[0][3] == 'X'  ) || (this.board[1][0] == 'X'
+                && this.board[1][1] == 'X' && this.board[1][2] == 'X' && this.board[1][3] == 'X' ) || (this.board[2][0] == 'X' && this.board[2][1] == 'X'
+                && this.board[2][2] == 'X' && this.board[2][3] == 'X' ) || (this.board[3][0] == 'X' && this.board[3][1] == 'X'
+                && this.board[3][2] == 'X' && this.board[3][3] == 'X'))
             return true;
         // diagnose win
-        if ((this.board[0][0] == 'X' && this.board[1][1] == 'X' && this.board[2][2] == 'X') ||
-                (this.board[0][2] == 'X' && this.board[1][1] == 'X' && this.board[2][0] == 'X'))
+        if ((this.board[0][0] == 'X' && this.board[1][1] == 'X' && this.board[2][2] == 'X' && this.board[3][3] == 'X') ||
+                (this.board[0][3] == 'X' && this.board[1][2] == 'X' && this.board[2][1] == 'X' && this.board[3][0] == 'X') )
             return true;
         return false;
     }
-
-    public boolean OWin_board3() {
-
+    public boolean OWin() {
         //vertical win
-        if (this.board[0][0] == 'O' && this.board[1][0] == 'O' && this.board[2][0] == 'O')
+        if (this.board[0][0] == 'O' && this.board[1][0] == 'O' && this.board[2][0] == 'O'  && this.board[3][0] == 'O')
             return true;
-        if (this.board[0][1] == 'O' && this.board[1][1] == 'O' && this.board[2][1] == 'O')
+        if (this.board[0][1] == 'O' && this.board[1][1] == 'O' && this.board[2][1] == 'O'  && this.board[3][1] == 'O' )
             return true;
-        if (this.board[0][2] == 'O' && this.board[1][2] == 'O' && this.board[2][2] == 'O')
+        if (this.board[0][2] == 'O' && this.board[1][2] == 'O' && this.board[2][2] == 'O'  && this.board[3][2] == 'O' )
+            return true;
+        if (this.board[0][3] == 'O' && this.board[1][3] == 'O' && this.board[2][3] == 'O' && this.board[3][3] == 'O' )
             return true;
         //horizontal win
-        if ((this.board[0][0] == 'O' && this.board[0][1] == 'O' && this.board[0][2] == 'O') || (this.board[1][0] == 'O'
-                && this.board[1][1] == 'O' && this.board[1][2] == 'O') || (this.board[2][0] == 'O' && this.board[2][1] == 'O'
-                && this.board[2][2] == 'O'))
+        if ((this.board[0][0] == 'O' && this.board[0][1] == 'O' && this.board[0][2] == 'O' && this.board[0][3] == 'O'  ) || (this.board[1][0] == 'O'
+                && this.board[1][1] == 'O' && this.board[1][2] == 'O' && this.board[1][3] == 'O' ) || (this.board[2][0] == 'O' && this.board[2][1] == 'O'
+                && this.board[2][2] == 'O' && this.board[2][3] == 'O' ) || (this.board[3][0] == 'O' && this.board[3][1] == 'O'
+                && this.board[3][2] == 'O' && this.board[3][3] == 'O'))
             return true;
         // diagnose win
-        if ((this.board[0][0] == 'O' && this.board[1][1] == 'O' && this.board[2][2] == 'O') ||
-                (this.board[0][2] == 'O' && this.board[1][1] == 'O' && this.board[2][0] == 'O'))
+        if ((this.board[0][0] == 'O' && this.board[1][1] == 'O' && this.board[2][2] == 'O' && this.board[3][3] == 'O') ||
+                (this.board[0][3] == 'O' && this.board[1][2] == 'O' && this.board[2][1] == 'O' && this.board[3][0] == 'O') )
             return true;
-
         return false;
     }
 
     public boolean isGameOver(){
-        if (XWin_board3() || OWin_board3() || returnAvailableMove().isEmpty())
+        if (XWin() || OWin() || returnAvailableMove().isEmpty())
             return true;
         return false;
     }
@@ -108,10 +111,10 @@ public class Board {
     }
 
     public int minimaxPruning(char[][]board, char player, int depth, int alpha, int beta){
-        if (XWin_board3())
-            return 1;
-        if (OWin_board3())
-            return -1;
+            if(XWin())
+                return 1;
+            if (OWin())
+                return -1;
         ArrayList<Move> availableCell = returnAvailableMove();
         if (availableCell.isEmpty())
             return 0;
@@ -169,9 +172,9 @@ public class Board {
     }
 
     public int minimax(char[][]board, char player, int depth){
-        if (XWin_board3())
+        if (XWin())
             return 1;
-        if (OWin_board3())
+        if (OWin())
             return -1;
 
         ArrayList<Move> availableCell = returnAvailableMove();
@@ -248,21 +251,6 @@ public class Board {
             }
         }
         return availabeMoves;
-    }
-}
-class MoveAndScore{
-    int score;
-    Move m;
-    public MoveAndScore(int s, Move move){
-        this.score = s;
-        this.m = move;
-    }
-}
-class Move {
-    int x; int y;
-    public Move(int x, int y){
-        this.x = x;
-        this.y = y;
     }
 }
 
